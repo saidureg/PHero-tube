@@ -4,11 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PHero Tube</title>
+    <!--set Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind and DaisyUI CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@3.6.4/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- customized color -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "brand-color": "#FF1F3D",
+              "title-color": "#171717",
+              "btn-color": "#25252533",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .font-inter {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
   </head>
-  <body>
-    <header></header>
+  <body class="max-w-screen-2xl mx-auto font-inter">
+    <header
+      class="my-6 mb-1 md:pb-2 lg:pb-5 mx-1 lg:mx-0 md:my-10 lg:my-12 border-b border-[title-color border-opacity-20"
+    >
+      <div class="navbar bg-base-100">
+        <div class="navbar-start">
+          <img src="./image/Logo.png" alt="" />
+        </div>
+        <div class="navbar-center ml-8 md:ml-2">
+          <button
+            class="py-2 px-3 lg:py-3 md:px-5 text-[#252525] text-base md:text-lg font-medium bg-btn-color rounded-lg"
+          >
+            Sort by view
+          </button>
+        </div>
+        <div class="navbar-end">
+          <a
+            class="py-2 px-3 lg:py-3 md:px-5 text-white text-base md:text-lg font-medium bg-brand-color rounded-lg"
+            >Blog</a
+          >
+        </div>
+      </div>
+    </header>
     <main>
-      <h3>PHero Tube</h3>
+      <h3 class="text-5xl">PHero Tube</h3>
     </main>
 
     <script src="./script/index.js"></script>
