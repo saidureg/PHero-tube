@@ -17,13 +17,14 @@ const loadCategory = async () => {
 
 // show the data of category wise
 const displayCategoryData = async (id) => {
+  // sortByView(id);
   // card data fetch
   const res = await fetch(
     ` https://openapi.programming-hero.com/api/videos/category/${id}`
   );
   const data = await res.json();
 
-  // selected the card container id
+  // selected the card container by id
   const cardContainer = document.getElementById("card-container");
   cardContainer.textContent = "";
 
@@ -45,6 +46,9 @@ const displayCategoryData = async (id) => {
     emptyCard.appendChild(div);
   } else {
     data.data.forEach((showCategory) => {
+      // convert posted date to hour and min
+      convertTime(showCategory.others?.posted_date);
+
       const div = document.createElement("div");
       div.innerHTML = `
             <div class="card mb-5">
@@ -52,10 +56,10 @@ const displayCategoryData = async (id) => {
                 <img class= "w-[300px] h-[300px]" src=${
                   showCategory.thumbnail
                 } alt=${showCategory.title} />
-                <p
+                <p id="posted-date"
                   class="absolute py-1 px-2 bg-title-color text-white text-[10px] lg:text-xs right-16 md:right-12 bottom-3 rounded"
                 >
-                  3hrs 56 min ago
+                3hrs 52 min ago
                 </p>
               </figure>
               <div class="flex w-[312px] mx-auto mt-4">
@@ -90,9 +94,48 @@ const displayCategoryData = async (id) => {
             `;
       cardContainer.appendChild(div);
 
-      console.log(showCategory);
+      // console.log(showCategory);
     });
   }
 };
+
+// sorting the card depend on total view
+const sortByView = async () => {
+  const res = await fetch(
+    "https://openapi.programming-hero.com/api/videos/category/1000"
+  );
+  const data = await res.json();
+
+  const viewsValue = [];
+  data.data.forEach((element) => {
+    const view = element.others.views;
+    viewsValue.push(parseFloat(view));
+  });
+  const sortView = (arr) => {
+    arr.sort((a, b) => {
+      return b - a;
+    });
+    return arr;
+  };
+  console.log(sortView(viewsValue));
+  viewsValue.forEach((showViews) => {
+    // displayCategoryData(showViews);
+    // console.log(showViews);
+  });
+};
+
+const convertTime = (seconds) => {
+  const postedDate = document.getElementById("posted-date");
+  const hour = Math.floor(seconds / 3600);
+  console.log("hrs: ", hour);
+  const min = Math.floor((seconds % 3600) / 60);
+  console.log("Min: ", min);
+  const p = document.createElement("p");
+  p.innerText = `${hour}hrs ${min} min ago`;
+  // postedDate.appendChild(p);
+};
+
 loadCategory();
-// displayCategoryData();
+
+// by default show all data
+displayCategoryData(1000);
