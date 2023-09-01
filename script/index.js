@@ -47,7 +47,9 @@ const displayCategoryData = async (id) => {
   } else {
     data.data.forEach((showCategory) => {
       // convert posted date to hour and min
-      convertTime(showCategory.others?.posted_date);
+      const postedDate = showCategory.others.posted_date;
+      const hour = Math.floor(postedDate / 3600);
+      const min = Math.floor((postedDate % 3600) / 60);
 
       const div = document.createElement("div");
       div.innerHTML = `
@@ -56,10 +58,10 @@ const displayCategoryData = async (id) => {
                 <img class= "w-[300px] h-[300px]" src=${
                   showCategory.thumbnail
                 } alt=${showCategory.title} />
-                <p id="posted-date"
+                <p
                   class="absolute py-1 px-2 bg-title-color text-white text-[10px] lg:text-xs right-16 md:right-12 bottom-3 rounded"
                 >
-                3hrs 52 min ago
+                ${hour ? hour + "hrs" : ""} ${min ? min + "min ago" : ""}
                 </p>
               </figure>
               <div class="flex w-[312px] mx-auto mt-4">
@@ -123,18 +125,6 @@ const sortByView = async () => {
     // console.log(showViews);
   });
 };
-
-const convertTime = (seconds) => {
-  const postedDate = document.getElementById("posted-date");
-  const hour = Math.floor(seconds / 3600);
-  console.log("hrs: ", hour);
-  const min = Math.floor((seconds % 3600) / 60);
-  console.log("Min: ", min);
-  const p = document.createElement("p");
-  p.innerText = `${hour}hrs ${min} min ago`;
-  // postedDate.appendChild(p);
-};
-
 loadCategory();
 
 // by default show all data
