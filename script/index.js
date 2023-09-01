@@ -59,7 +59,9 @@ const displayCategoryData = async (id) => {
                   showCategory.thumbnail
                 } alt=${showCategory.title} />
                 <p
-                  class="absolute py-1 px-2 bg-title-color text-white text-[10px] lg:text-xs right-16 md:right-12 bottom-3 rounded"
+                  class="absolute py-1 px-2 ${
+                    hour ? "bg-title-color text-white opacity-80" : ""
+                  }  text-[10px] lg:text-xs right-16 md:right-12 bottom-3 rounded"
                 >
                 ${hour ? hour + "hrs" : ""} ${min ? min + "min ago" : ""}
                 </p>
