@@ -4,29 +4,30 @@ const loadCategory = async () => {
     "https://openapi.programming-hero.com/api/videos/categories"
   );
   const data = await res.json();
+
   // all tab show category wise
   const tabContainer = document.getElementById("tab-container");
   data.data.forEach((category) => {
     const div = document.createElement("div");
     div.innerHTML = `
-          <a onclick="displayCategoryData('${category.category_id}')" class="tab tab-active">${category.category} </a>
+          <a onclick="fetchCategoryList('${category.category_id}')" class="tab tab-active">${category.category} </a>
           `;
     tabContainer.appendChild(div);
   });
 };
 
+// declared the global variable for passing the Id
+let selectedCategoryId;
+
 // show the data of category wise
-const displayCategoryData = async (id) => {
-  // sortByView(id);
+const fetchCategoryList = async (id = 1000) => {
+  selectedCategoryId = id;
+
   // card data fetch
   const res = await fetch(
     ` https://openapi.programming-hero.com/api/videos/category/${id}`
   );
   const data = await res.json();
-
-  // selected the card container by id
-  const cardContainer = document.getElementById("card-container");
-  cardContainer.textContent = "";
 
   // if on data are available then show the message
   const emptyCard = document.getElementById("empty-card");
@@ -44,15 +45,24 @@ const displayCategoryData = async (id) => {
     
       `;
     emptyCard.appendChild(div);
-  } else {
-    data.data.forEach((showCategory) => {
-      // convert posted date to hour and min
-      const postedDate = showCategory.others.posted_date;
-      const hour = Math.floor(postedDate / 3600);
-      const min = Math.floor((postedDate % 3600) / 60);
+  }
+  displayCategoryData(data);
+};
 
-      const div = document.createElement("div");
-      div.innerHTML = `
+const displayCategoryData = (data) => {
+  // console.log(data);
+  // selected the card container by id
+  const cardContainer = document.getElementById("card-container");
+  cardContainer.textContent = "";
+
+  data.data.forEach((showCategory) => {
+    // convert posted date to hour and min
+    const postedDate = showCategory.others.posted_date;
+    const hour = Math.floor(postedDate / 3600);
+    const min = Math.floor((postedDate % 3600) / 60);
+
+    const div = document.createElement("div");
+    div.innerHTML = `
             <div class="card mb-5">
               <figure class="relative">
                 <img class= "w-[300px] h-[300px]" src=${
@@ -96,38 +106,48 @@ const displayCategoryData = async (id) => {
               </div>
             </div>
             `;
-      cardContainer.appendChild(div);
+    cardContainer.appendChild(div);
 
-      // console.log(showCategory);
+    // console.log(showCategory);
+  });
+};
+
+// sorting the card depend on total view
+const sortViewBnt = async () => {
+  if (selectedCategoryId === "1005") {
+    alert("No content are available for Sorting");
+  } else {
+    // fetch data category_Id based
+    const res = await fetch(
+      ` https://openapi.programming-hero.com/api/videos/category/${selectedCategoryId}`
+    );
+    const data = await res.json();
+
+    // extract view counts and parse them as numeric values
+    const viewsData = data.data.map((element) => {
+      const view = element.others.views;
+      const numericView = parseFloat(view.replace("K", "")) * 1000;
+
+      return {
+        view: numericView,
+        card: element,
+      };
+    });
+    const sortData = viewsData.sort((a, b) => b.view - a.view);
+
+    // if on data are available then show the message
+    const emptyCard = document.getElementById("empty-card");
+    emptyCard.textContent = "";
+
+    // call displayCategoryData function
+    displayCategoryData({
+      data: viewsData.map((item) => item.card),
     });
   }
 };
 
-// sorting the card depend on total view
-const sortByView = async () => {
-  const res = await fetch(
-    "https://openapi.programming-hero.com/api/videos/category/1000"
-  );
-  const data = await res.json();
-
-  const viewsValue = [];
-  data.data.forEach((element) => {
-    const view = element.others.views;
-    viewsValue.push(parseFloat(view));
-  });
-  const sortView = (arr) => {
-    arr.sort((a, b) => {
-      return b - a;
-    });
-    return arr;
-  };
-  console.log(sortView(viewsValue));
-  viewsValue.forEach((showViews) => {
-    // displayCategoryData(showViews);
-    // console.log(showViews);
-  });
-};
+// calling loadCategory function for show the all category
 loadCategory();
 
 // by default show all data
-displayCategoryData(1000);
+fetchCategoryList();

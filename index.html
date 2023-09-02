@@ -50,7 +50,7 @@
         </div>
         <div class="navbar-center ml-8 md:ml-2">
           <button
-            onclick="sortByView()"
+            onclick="sortViewBnt()"
             class="py-2 px-3 lg:py-3 md:px-5 text-[#252525] text-base md:text-lg font-medium bg-btn-color rounded-lg"
           >
             Sort by view
@@ -66,7 +66,7 @@
       </div>
     </header>
     <main>
-      <!--show category tab  -->
+      <!--show all category tab  -->
       <div
         id="tab-container"
         class="tabs tabs-boxed bg-white gap-3 md:gap-4 justify-center"
@@ -78,40 +78,12 @@
       </div>
 
       <!-- show category wise card -->
-
       <div
         id="card-container"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-10"
-      >
-        <!-- first card -->
-        <!-- <div class="card mb-5">
-          <figure class="relative">
-            <img src="./image/Rectangle 1.png" alt="" />
-            <p
-              class="absolute bg-title-color text-white text-[10px] lg:text-xs right-16 md:right-12 bottom-3"
-            >
-              3hrs 56 min ago
-            </p>
-          </figure>
-          <div class="flex w-[312px] mx-auto mt-4">
-            <div>
-              <img src="./image/Ellipse 1.png" alt="" />
-            </div>
-            <div class="ml-3 space-y-2 flex-1 text-title-color">
-              <h2 class="font-bold">
-                Building a Winning UX Strategy Using the Kano Model
-              </h2>
+      ></div>
 
-              <div class="flex items-center gap-3">
-                <h3 class="text-sm lg:text-base opacity-70">Awlad Hossain</h3>
-                <img src="./image/fi_10629607.png" alt="" />
-              </div>
-
-              <p class="text-sm lg:text-base opacity-70">91K views</p>
-            </div>
-          </div>
-        </div> -->
-      </div>
+      <!-- If no category card are available then selected this section -->
       <div
         id="empty-card"
         class="flex flex-col items-center justify-center mt-10 lg:mt-24"
