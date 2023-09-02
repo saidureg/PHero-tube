@@ -1,19 +1,23 @@
 // show category using API
 const loadCategory = async () => {
-  const res = await fetch(
-    "https://openapi.programming-hero.com/api/videos/categories"
-  );
-  const data = await res.json();
+  try {
+    const res = await fetch(
+      "https://openapi.programming-hero.com/api/videos/categories"
+    );
+    const data = await res.json();
 
-  // all tab show category wise
-  const tabContainer = document.getElementById("tab-container");
-  data.data.forEach((category) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-          <a onclick="fetchCategoryList('${category.category_id}')" class="tab tab-active">${category.category} </a>
-          `;
-    tabContainer.appendChild(div);
-  });
+    // all tab show category wise
+    const tabContainer = document.getElementById("tab-container");
+    data.data.forEach((category) => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+            <a onclick="fetchCategoryList('${category.category_id}')" class="tab tab-active">${category.category} </a>
+            `;
+      tabContainer.appendChild(div);
+    });
+  } catch (error) {
+    console.error("An error occurred while loading the data", error);
+  }
 };
 
 // declared the global variable for passing the Id
@@ -21,22 +25,23 @@ let selectedCategoryId;
 
 // show the data of category wise
 const fetchCategoryList = async (id = 1000) => {
-  selectedCategoryId = id;
+  try {
+    selectedCategoryId = id;
 
-  // card data fetch
-  const res = await fetch(
-    ` https://openapi.programming-hero.com/api/videos/category/${id}`
-  );
-  const data = await res.json();
+    // card data fetch
+    const res = await fetch(
+      ` https://openapi.programming-hero.com/api/videos/category/${id}`
+    );
+    const data = await res.json();
 
-  // if on data are available then show the message
-  const emptyCard = document.getElementById("empty-card");
-  emptyCard.textContent = "";
+    // if on data are available then show the empty message section clear
+    const emptyCard = document.getElementById("empty-card");
+    emptyCard.textContent = "";
 
-  // here check the category value are empty or not
-  if (!data.status) {
-    const div = document.createElement("div");
-    div.innerHTML = `
+    // here check the category value are empty or not
+    if (!data.status) {
+      const div = document.createElement("div");
+      div.innerHTML = `
     <img class='ml-24 md:ml-32' src="./image/Icon.png" alt="" />
     <p class="text-title-color font-bold text-2xl ml-3 md:text-4xl mt-4">
      Oops!! Sorry, There is no <br>
@@ -44,13 +49,15 @@ const fetchCategoryList = async (id = 1000) => {
     </p>
     
       `;
-    emptyCard.appendChild(div);
+      emptyCard.appendChild(div);
+    }
+    displayCategoryData(data);
+  } catch (error) {
+    console.error("An error occurred while loading the data", error);
   }
-  displayCategoryData(data);
 };
 
 const displayCategoryData = (data) => {
-  // console.log(data);
   // selected the card container by id
   const cardContainer = document.getElementById("card-container");
   cardContainer.textContent = "";
@@ -107,42 +114,42 @@ const displayCategoryData = (data) => {
             </div>
             `;
     cardContainer.appendChild(div);
-
-    // console.log(showCategory);
   });
 };
 
 // sorting the card depend on total view
 const sortViewBnt = async () => {
-  if (selectedCategoryId === "1005") {
-    alert("No content are available for Sorting");
-  } else {
-    // fetch data category_Id based
-    const res = await fetch(
-      ` https://openapi.programming-hero.com/api/videos/category/${selectedCategoryId}`
-    );
-    const data = await res.json();
+  try {
+    if (selectedCategoryId === "1005") {
+      alert("No content are available for Sorting");
+    } else {
+      // fetch data category_Id based
+      const res = await fetch(
+        ` https://openapi.programming-hero.com/api/videos/category/${selectedCategoryId}`
+      );
+      const data = await res.json();
 
-    // extract view counts and parse them as numeric values
-    const viewsData = data.data.map((element) => {
-      const view = element.others.views;
-      const numericView = parseFloat(view.replace("K", "")) * 1000;
+      // extract view counts and parse them as numeric values
+      const getSortedCard = data.data.map((unsortedCard) => {
+        const view = unsortedCard.others.views;
+        const numericView = parseFloat(view.replace("K", "")) * 1000;
 
-      return {
-        view: numericView,
-        card: element,
-      };
-    });
-    const sortData = viewsData.sort((a, b) => b.view - a.view);
+        return {
+          totalView: numericView,
+          card: unsortedCard,
+        };
+      });
 
-    // if on data are available then show the message
-    const emptyCard = document.getElementById("empty-card");
-    emptyCard.textContent = "";
+      // sorting the card based on totalView Property
+      getSortedCard.sort((a, b) => b.totalView - a.totalView);
 
-    // call displayCategoryData function
-    displayCategoryData({
-      data: viewsData.map((item) => item.card),
-    });
+      // call displayCategoryData function
+      displayCategoryData({
+        data: getSortedCard.map((sortedCard) => sortedCard.card),
+      });
+    }
+  } catch (error) {
+    console.error("An error occurred while loading the data", error);
   }
 };
 
