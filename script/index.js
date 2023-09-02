@@ -11,7 +11,7 @@ const loadCategory = async () => {
     data.data.forEach((category) => {
       const div = document.createElement("div");
       div.innerHTML = `
-            <a onclick="fetchCategoryList('${category.category_id}')" class="tab tab-active">${category.category} </a>
+            <a onclick="fetchCategoryList('${category.category_id}')" class="tab active-tab">${category.category} </a>
             `;
       tabContainer.appendChild(div);
     });

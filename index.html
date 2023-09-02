@@ -38,6 +38,13 @@
       .font-inter {
         font-family: "Inter", sans-serif;
       }
+      .active-tab {
+        border: 1px solid red;
+        font-weight: 500;
+      }
+      .active-tab:active {
+        background-color: red;
+      }
     </style>
   </head>
   <body class="max-w-screen-2xl mx-auto font-inter">
@@ -70,12 +77,7 @@
       <div
         id="tab-container"
         class="tabs tabs-boxed bg-white gap-3 md:gap-4 justify-center"
-      >
-        <!-- <a class="tab tab-active">All</a>
-        <a class="tab">Music</a>
-        <a class="tab">Comedy</a>
-        <a class="tab">Drawing</a> -->
-      </div>
+      ></div>
 
       <!-- show category wise card -->
       <div
