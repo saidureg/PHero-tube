@@ -34,6 +34,7 @@
         },
       };
     </script>
+
     <style>
       .font-inter {
         font-family: "Inter", sans-serif;
@@ -59,8 +60,224 @@
       </div>
     </header>
     <main>
-      <section>
-        <h3>Blog</h3>
+      <section class="w-11/12 lg:w-full mx-auto mt-5 md:mt-0">
+        <!-- first collapse -->
+        <div class="collapse collapse-plus bg-base-200 mb-3">
+          <input type="radio" name="my-accordion-3" checked="checked" />
+          <div class="collapse-title text-xl font-semibold">
+            Discuss the scope of var, let, and const
+          </div>
+          <div class="collapse-content space-y-3">
+            <p class="font-medium">
+              Before we get into the discuss the scope of var, let, and const in
+              Js, let us learn what is scope and type of the scope.
+            </p>
+            <p>
+              <strong>Scope</strong> in JavaScript refers to the current context
+              of code, which determines the accessibility of variables to
+              JavaScript. The two types of scope are local and global: Global
+              variables are those declared outside of any block or function
+              scope. This means we can be accessed the variables anywhere in our
+              code. Local variables are those declared inside of a block or
+              function. We only accessed the variables inside the function or
+              block scope
+            </p>
+            <p class="font-medium">
+              Now we will discuss the Functional scope and Block scope
+            </p>
+            <h3 class="font-semibold text-xl">Function scope</h3>
+            <p>
+              Variable that is declared inside the function & can't be accessed
+              outside of that function. var keyword maintain the Functional
+              scope,But global scope when it is declared outside the function.
+              Var is the old way to declare a variable
+            </p>
+            <h3 class="font-semibold text-xl">Block scope</h3>
+            <p>
+              Variable that is declared inside a specific block (a pair of curly
+              bracket) & can't be accessed outside of that block. let and const
+              keyword maintain block scope.It's explore ES6 or ES 2015 version.
+            </p>
+            <p class="text-xl font-semibold">
+              Let's now we will discuss the var, let, and const keyword and
+              understand with example
+            </p>
+            <p>
+              The <strong>var</strong> variable has Functional scope, meaning
+              var variable will be accessible only inside the function it's
+              declared if we try of access outside of the scope, it will show a
+              Reference Error but it's declared the outside of the function then
+              we access the whole program. <br />
+              <strong>Example for var:</strong> <br />
+              function func1() { <br />var a=10; <br />
+              } <br />
+              console.log(a) <br />
+              <li>
+                When we will run the code, we will see an error as
+                <strong>a is not defined</strong> because var variables are only
+                accessible in the function scope.
+              </li>
+            </p>
+            <p>
+              The <strong>let and const</strong> variable has block scope,
+              meaning let and const variable will be accessible only inside the
+              block it's declared if we try of access outside of the scope, it
+              will show a Reference Error. <br />
+              <strong>Example for let:</strong> <br />
+              for (let i = 0; i < 3; i++) { <br />
+              console.log(i); <br />
+              } <br />
+              console.log(i); <br />
+              <li>
+                when we will run the code, we will see an error as
+                <strong>i is not defined</strong> because let variables are only
+                accessible within the block they are declared.
+              </li>
+              <strong>Example for const:</strong> <br />
+              { <br />
+              const x = 2; <br />
+              console.log(x); <br />
+              } <br />
+              console.log(x); <br />
+              <li>
+                when we run the code, we will see an error as
+                <strong>x is not defined</strong> because x was defined under
+                the block which was accessible in this block, but when we try to
+                access x outside that block, we will get an error.
+              </li>
+            </p>
+            <p class="text-sm">
+              <i
+                >Here seeing the table; we will show some difference between var
+                and let and const in javascript:</i
+              >
+            </p>
+
+            <div class="overflow-x-auto">
+              <table class="table border-collapse border border-slate-400">
+                <!-- head -->
+                <thead>
+                  <tr>
+                    <th class="border border-slate-300">Type</th>
+                    <th class="border border-slate-300">Scope</th>
+                    <th class="border border-slate-300">Redeclare</th>
+                    <th class="border border-slate-300">Reassign</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- row 1 -->
+                  <tr class="border border-slate-300">
+                    <th class="border border-slate-300">var</th>
+                    <td class="border border-slate-300">Functional & Global</td>
+                    <td class="border border-slate-300">Yes</td>
+                    <td class="border border-slate-300">Yes</td>
+                  </tr>
+                  <!-- row 2 -->
+                  <tr class="border border-slate-300">
+                    <th class="border border-slate-300">let</th>
+                    <td class="border border-slate-300">Block</td>
+                    <td class="border border-slate-300">No</td>
+                    <td class="border border-slate-300">Yes</td>
+                  </tr>
+                  <!-- row 3 -->
+                  <tr class="border border-slate-300">
+                    <th class="border border-slate-300">const</th>
+                    <td class="border border-slate-300">Block</td>
+                    <td class="border border-slate-300">No</td>
+                    <td class="border border-slate-300">No</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- second collapse -->
+        <div class="collapse collapse-plus bg-base-200 mb-3">
+          <input type="radio" name="my-accordion-3" />
+          <div class="collapse-title text-xl font-semibold">
+            Tell us the use cases of null and undefined
+          </div>
+          <div class="collapse-content space-y-3">
+            <p>
+              <strong>Undefined</strong> means the variable has been declared,
+              but its value has not been assigned. <br />
+              <strong>Null</strong> means an empty value or a blank value.
+              Undefined and Null are primitive data types.
+            </p>
+            <p>
+              They are often used in different ways and have distinct use cases:
+              Here I will discuss some use case for Null and Undefined.
+            </p>
+            <h3 class="font-semibold">Undefined use case</h3>
+            <p>8 ways to get undefined</p>
+            <ul class="list-disc ml-1 md:ml-3 lg:ml-6">
+              <li>
+                When a variable is declared but not initialized, it will give
+                undefined
+              </li>
+              <li>function with on return</li>
+              <li>
+                If a function called with few arguments but parameter that is
+                not passed will be undefined
+              </li>
+              <li>
+                If a function return has nothing on the right side/value will be
+                return undefined
+              </li>
+              <li>set a value directly to undefined</li>
+              <li>
+                Property that doesn't exist on an object will give you undefined
+              </li>
+              <li>accessing array elements outside of the index range</li>
+              <li>deleting an element inside an array</li>
+            </ul>
+            <h3 class="font-semibold">Null use case</h3>
+            <p>Some ways to get null</p>
+            <ul class="list-disc ml-1 md:ml-3 lg:ml-6">
+              <li>set a value directly to null</li>
+              <li>
+                We can assign null to object properties to remove references to
+                objects
+              </li>
+              <li>
+                You can use null to check if a particular value or object exists
+                or has been assigned.
+              </li>
+              <li>To used for referring absence of any object value</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- third collapse -->
+        <div class="collapse collapse-plus bg-base-200">
+          <input type="radio" name="my-accordion-3" />
+          <div class="collapse-title text-xl font-semibold">
+            What do you mean by REST API?
+          </div>
+          <div class="collapse-content space-y-3">
+            <p>
+              REST API meaning for Representational State Transfer Application
+              Programming Interface. It is an architectural style for designing
+              networked applications.
+            </p>
+
+            <p>
+              An API (Application Programming Interface) is an interface through
+              which one program or web site talks to another. They are used to
+              share data and services, and they come many different formats and
+              types.
+            </p>
+            <p>
+              A RESTful API is one of the many possible ways that programs,
+              servers, and web sites can share data and services. REST describes
+              the general rules for how the data and services are represented
+              through the API so that other programs will be able to correctly
+              request and receive the data and services that an API makes
+              available.
+            </p>
+          </div>
+        </div>
       </section>
     </main>
   </body>

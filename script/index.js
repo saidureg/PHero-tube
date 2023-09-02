@@ -129,7 +129,7 @@ const sortViewBnt = async () => {
       );
       const data = await res.json();
 
-      // extract view counts and parse them as numeric values
+      // selected views value and convert it numeric value
       const getSortedCard = data.data.map((unsortedCard) => {
         const view = unsortedCard.others.views;
         const numericView = parseFloat(view.replace("K", "")) * 1000;
